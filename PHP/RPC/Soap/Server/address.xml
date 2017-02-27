@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<userinfo>
+	<address>
+		<firstname>firstname</firstname>
+		<middlename>middlename</middlename>
+		<lastname>lastname</lastname>
+		<phone>1234567890</phone>
+		<line1>line1</line1>
+		<city>city</city>
+		<state>state</state>
+		<zip>12345</zip>
+		<country>country</country>
+	</address>
+</userinfo>

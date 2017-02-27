@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions
+	xmlns:namespace="http://localhost/Web_services/PHP/RPC/Soap/Server/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="webservice"
+	targetNamespace="http://localhost/Web_services/PHP/RPC/Soap/Server/">
+	<wsdl:types>
+		<xsd:schema targetNamespace="http://localhost/Web_services/PHP/RPC/Soap/Server/">
+			<xsd:element name="Authentication">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Credentails" type="namespace:Credentails"
+							minOccurs="0" maxOccurs="1" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="AuthenticationResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="AuthenticationResponse" type="namespace:AuthenticationResponse" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="AddressValidation">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Address" type="namespace:Addressdetails"
+							minOccurs="0" maxOccurs="1">
+						</xsd:element>
+						<xsd:element name="Name" type="namespace:Userdetails"
+							minOccurs="0" maxOccurs="1">
+						</xsd:element>
+						<xsd:element name="Phone" type="namespace:Phonedetails"
+							minOccurs="0" maxOccurs="1"></xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="AddressValidationResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="AddressValidationResponse" type="namespace:AddressValidationResponse"></xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:complexType name="Credentails">
+				<xsd:sequence>
+					<xsd:element name="Username" type="xsd:string"
+						minOccurs="0" maxOccurs="1"></xsd:element>
+					<xsd:element name="Password" type="xsd:string"
+						minOccurs="0" maxOccurs="1"></xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="Userdetails">
+				<xsd:sequence>
+					<xsd:element name="Firstname" type="xsd:string"
+						minOccurs="0" maxOccurs="1"></xsd:element>
+					<xsd:element name="Middlename" type="xsd:string"
+						minOccurs="0" maxOccurs="1"></xsd:element>
+					<xsd:element name="Lastname" type="xsd:string"
+						minOccurs="0" maxOccurs="1"></xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="Addressdetails">
+				<xsd:sequence>
+					<xsd:element name="Line1" type="xsd:string" minOccurs="0"
+						maxOccurs="1"></xsd:element>
+					<xsd:element name="City" type="xsd:string" minOccurs="0"
+						maxOccurs="1"></xsd:element>
+					<xsd:element name="State" type="xsd:string" minOccurs="0"
+						maxOccurs="1"></xsd:element>
+					<xsd:element name="Country" type="xsd:string"
+						minOccurs="0" maxOccurs="1"></xsd:element>
+					<xsd:element name="Zip" type="xsd:string" minOccurs="0"
+						maxOccurs="1"></xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="Phonedetails">
+				<xsd:sequence>
+					<xsd:element name="Phonenumber" type="xsd:string"
+						minOccurs="0" maxOccurs="1"></xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="AddressValidationResponse">
+				<xsd:sequence>
+					<xsd:element name="NameResponse" type="xsd:boolean"></xsd:element>
+					<xsd:element name="AddressResponse" type="xsd:boolean"></xsd:element>
+					<xsd:element name="PhoneResponse" type="xsd:boolean"></xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+
+
+			<xsd:complexType name="AuthenticationResponse">
+				<xsd:sequence>
+					<xsd:element name="Status" type="xsd:string"></xsd:element>
+					<xsd:element name="SessionID" type="xsd:string"></xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="AuthenticationRequest">
+		<wsdl:part element="namespace:Authentication" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="AuthenticationResponse">
+		<wsdl:part element="namespace:AuthenticationResponse" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="AddressValidationRequest">
+		<wsdl:part name="parameters" element="namespace:AddressValidation"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="AddressValidationResponse">
+		<wsdl:part name="parameters" element="namespace:AddressValidationResponse"></wsdl:part>
+	</wsdl:message>
+	<wsdl:portType name="webservice">
+		<wsdl:operation name="Authentication">
+			<wsdl:input message="namespace:AuthenticationRequest" />
+			<wsdl:output message="namespace:AuthenticationResponse" />
+		</wsdl:operation>
+		<wsdl:operation name="AddressValidation">
+			<wsdl:input message="namespace:AddressValidationRequest"></wsdl:input>
+			<wsdl:output message="namespace:AddressValidationResponse"></wsdl:output>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="webserviceSOAP" type="namespace:webservice">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="Authentication">
+			<soap:operation
+				soapAction="http://localhost/Web_services/PHP/RPC/Soap/Server/Authentication" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="AddressValidation">
+			<soap:operation
+				soapAction="http://localhost/Web_services/PHP/RPC/Soap/Server/AddressValidation" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="webservice">
+		<wsdl:port binding="namespace:webserviceSOAP" name="webserviceSOAP">
+			<soap:address
+				location="http://localhost/Web_services/PHP/RPC/Soap/Server/" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>
